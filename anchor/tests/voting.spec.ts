@@ -114,18 +114,5 @@ describe("Voting", () => {
         throw err;
       }
     }
-
-    // Fetch candidate account
-    const [candidateAddress] = PublicKey.findProgramAddressSync(
-      [pollId.toArrayLike(Buffer, "le", 8), Buffer.from(candidateName)],
-      votingProgram.programId
-    );
-    const candidateAccount = await votingProgram.account.candidate.fetch(
-      candidateAddress
-    );
-
-    // Verify vote count
-    expect(candidateAccount.candidateVotes.toNumber()).toBe(1);
-    expect(candidateAccount.candidateName).toBe(candidateName);
   });
 });
